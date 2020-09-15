@@ -2,6 +2,8 @@
 
 namespace CincoDeMauro\LaravelFilebase;
 
+use Illuminate\Support\ServiceProvider;
+
 class LaravelFilebaseServiceProvider extends ServiceProvider
 {
     /**
@@ -17,6 +19,6 @@ class LaravelFilebaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        dd('here');
     }
 }
