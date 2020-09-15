@@ -1,0 +1,53 @@
+{
+    "name": "cinco-de-mauro/laravel-filebase",
+    "description": "A Filebase driver for Laravel",
+    "keywords": [
+        "laravel",
+        "eloquent",
+        "mongodb",
+        "mongo",
+        "database",
+        "model",
+        "moloquent"
+    ],
+    "homepage": "https://github.com/cinco-de-mauro/laravel-filebase",
+    "authors": [
+        {
+            "name": "Mauro Velez",
+            "homepage": "https://github.com/cinco-de-mauro"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "illuminate/support": "^7.0",
+        "illuminate/container": "^7.0",
+        "illuminate/database": "^7.0",
+        "illuminate/events": "^7.0",
+        "mongodb/mongodb": "^1.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.4|^9.0",
+        "orchestra/testbench": "^5.0",
+        "mockery/mockery": "^1.3.1",
+        "doctrine/dbal": "^2.6"
+    },
+    "autoload": {
+        "psr-0": {
+            "CincoDeMauro\\LaravelFilebase": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": [
+            "tests/TestCase.php",
+            "tests/models",
+            "tests/seeds"
+        ]
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "CincoDeMauro\\LaravelFilebase\\LaravelFilebaseServiceProvider"
+            ]
+        }
+    }
+}
