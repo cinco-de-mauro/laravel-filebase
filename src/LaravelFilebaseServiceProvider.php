@@ -4,6 +4,8 @@ namespace CincoDeMauro\LaravelFilebase;
 
 use Illuminate\Support\ServiceProvider;
 
+use Illuminate\Database\Eloquent\Model;
+
 class LaravelFilebaseServiceProvider extends ServiceProvider
 {
     /**
@@ -11,7 +13,9 @@ class LaravelFilebaseServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Model::setConnectionResolver($this->app['db']);
 
+        Model::setEventDispatcher($this->app['events']);
     }
 
     /**
@@ -19,6 +23,11 @@ class LaravelFilebaseServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        dd('here');
+        $this->app->resolving('db', function ($db) {
+            $db->extend('filebase', function ($config, $name) {
+                $config['name'] = $name;
+                return new Connection($config);
+            });
+        });
     }
 }

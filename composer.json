@@ -4,8 +4,6 @@
     "keywords": [
         "laravel",
         "eloquent",
-        "mongodb",
-        "mongo",
         "database",
         "model",
         "moloquent"
@@ -35,13 +33,6 @@
         "psr-0": {
             "CincoDeMauro\\LaravelFilebase": "src/"
         }
-    },
-    "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php",
-            "tests/models",
-            "tests/seeds"
-        ]
     },
     "extra": {
         "laravel": {
