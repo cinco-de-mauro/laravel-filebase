@@ -2,10 +2,8 @@
 
 namespace CincoDeMauro\LaravelFilebase;
 
+use Filebase\Query;
 use Illuminate\Database\Connection as BaseConnection;
-use Illuminate\Support\Arr;
-
-use InvalidArgumentException;
 
 class Connection extends BaseConnection
 {
@@ -27,23 +25,10 @@ class Connection extends BaseConnection
      */
     public function __construct(array $config)
     {
-        // Create the connection
         $this->db = $this->createConnection($config);
-
-        // Get default database name
-//        $default_db = $this->getDefaultDatabaseName($dsn, $config);
-
-        // Select database
-//        $this->db = $this->connection->selectDatabase($default_db);
-
-        $this->useDefaultPostProcessor();
-
-        $this->useDefaultSchemaGrammar();
-
-        $this->useDefaultQueryGrammar();
     }
 
-    public function selectUsingColumns($columns, $wheres = [])
+    public function selectFiles($columns, $wheres = [])
     {
         $query = $this->db;
 
@@ -55,12 +40,37 @@ class Connection extends BaseConnection
             $query = $query->where($where['column'], strtoupper($where['operator']), $where['value']);
         }
 
-        return $query->results();
+        var_dump($this->db);
+
+        return ($query instanceof Query) ? $query->results() : $query->findAll();
     }
 
-    public function insert($query, $bindings = [])
+    public function insertFiles($inserts)
     {
-        return $this->statement($query, $bindings);
+        foreach($inserts as $insert){
+            $file = $this->db->get($insert['id']);
+
+            foreach ($insert as $field => $value) {
+                $file->$field = $value;
+            }
+
+            $file->save();
+        }
+    }
+
+    public function updateFiles($wheres, $values)
+    {
+        $records = $this->selectFiles(['id'], $wheres);
+
+        foreach($records as $record){
+            $file = $this->db->get($record['id']);
+
+            foreach ($values as $field => $value) {
+                $file->$field = $value;
+            }
+
+            $file->save();
+        }
     }
 
     /**
@@ -83,6 +93,8 @@ class Connection extends BaseConnection
      */
     public function table($table, $as = null)
     {
+        $this->db->table($table);
+
         return $this->collection($table);
     }
 
