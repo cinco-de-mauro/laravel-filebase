@@ -22,6 +22,7 @@ class Connection extends BaseConnection
     /**
      * Create a new database connection instance.
      * @param array $config
+     * @throws \Filebase\Filesystem\FilesystemException
      */
     public function __construct(array $config)
     {
@@ -99,46 +100,10 @@ class Connection extends BaseConnection
     }
 
     /**
-     * Get a collection.
-     * @param string $name
-     * @return Collection
-     */
-    public function getCollection($name)
-    {
-        return $this->db;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getSchemaBuilder()
-    {
-        return new Schema\Builder($this);
-    }
-
-    /**
-     * Get the database object.
-     * @return \Database
-     */
-    public function ge()
-    {
-        return $this->db;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getDatabaseName()
-    {
-        return $this->ge()->getDatabaseName();
-    }
-
-    /**
      * Create a new connection.
-     * @param string $dsn
      * @param array $config
-     * @param array $options
-     * @return \Client
+     * @return Firebase\Client
+     * @throws \Filebase\Filesystem\FilesystemException
      */
     protected function createConnection(array $config)
     {
@@ -153,89 +118,8 @@ class Connection extends BaseConnection
             'read_only'      => false
         ];
 
-        $config = config('database.connections.filebase', []);
-
         $config = array_merge($default, $config);
 
         return new \CincoDeMauro\LaravelFilebase\Firebase\Client($config);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function disconnect()
-    {
-        unset($this->connection);
-    }
-
-    /**
-     * Determine if the given configuration array has a dsn string.
-     * @param array $config
-     * @return bool
-     */
-    protected function hasDsnString(array $config)
-    {
-        return isset($config['dsn']) && !empty($config['dsn']);
-    }
-
-    /**
-     * Get the DSN string form configuration.
-     * @param array $config
-     * @return string
-     */
-    protected function getDsnString(array $config)
-    {
-        return $config['dsn'];
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getElapsedTime($start)
-    {
-        return parent::getElapsedTime($start);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function getDriverName()
-    {
-        return 'filebase';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getDefaultPostProcessor()
-    {
-        return new \CincoDeMauro\LaravelFilebase\Query\Processor();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getDefaultQueryGrammar()
-    {
-        return new \CincoDeMauro\LaravelFilebase\Query\Grammar();
-    }
-
-    /**
-     * @inheritdoc
-     */
-    protected function getDefaultSchemaGrammar()
-    {
-        return new \CincoDeMauro\LaravelFilebase\Schema\Grammar();
-    }
-
-    /**
-     * Dynamically pass methods to the connection.
-     * @param string $method
-     * @param array $parameters
-     * @return mixed
-     */
-    public function __call($method, $parameters)
-    {
-        return call_user_func_array([$this->db, $method], $parameters);
     }
 }
