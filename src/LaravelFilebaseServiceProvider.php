@@ -1,6 +1,6 @@
 <?php
 
-namespace CincoDeMauro\LaravelFilebase;
+namespace LaravelFilebase;
 
 use Illuminate\Support\ServiceProvider;
 

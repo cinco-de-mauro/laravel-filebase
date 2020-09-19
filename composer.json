@@ -5,8 +5,7 @@
         "laravel",
         "eloquent",
         "database",
-        "model",
-        "moloquent"
+        "model"
     ],
     "homepage": "https://github.com/cinco-de-mauro/laravel-filebase",
     "authors": [
@@ -31,13 +30,13 @@
     },
     "autoload": {
         "psr-0": {
-            "CincoDeMauro\\LaravelFilebase": "src/"
+            "LaravelFilebase": "src/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "CincoDeMauro\\LaravelFilebase\\LaravelFilebaseServiceProvider"
+                "LaravelFilebase\\LaravelFilebaseServiceProvider"
             ]
         }
     }

@@ -1,9 +1,8 @@
 <?php
 
-namespace CincoDeMauro\LaravelFilebase\Query;
+namespace LaravelFilebase\Illuminate\Eloquent;
 
 use Illuminate\Database\Query\Builder as BaseBuilder;
-use Illuminate\Support\Arr;
 
 class Builder extends BaseBuilder
 {

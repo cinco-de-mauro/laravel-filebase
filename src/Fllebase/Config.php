@@ -1,7 +1,7 @@
 <?php
 
 
-namespace CincoDeMauro\LaravelFilebase\Firebase;
+namespace LaravelFilebase\Filebase;
 
 use Filebase\Config as BaseConfig;
 
