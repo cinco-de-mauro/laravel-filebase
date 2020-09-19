@@ -41,8 +41,6 @@ class Connection extends BaseConnection
             $query = $query->where($where['column'], strtoupper($where['operator']), $where['value']);
         }
 
-        var_dump($this->db);
-
         return ($query instanceof Query) ? $query->results() : $query->findAll();
     }
 
